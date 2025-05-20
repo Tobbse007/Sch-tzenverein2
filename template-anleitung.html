@@ -93,7 +93,13 @@
         <ol>
             <li>Wählen Sie das passende Template für Ihre neue Seite aus</li>
             <li>Kopieren Sie die HTML-Datei ins Hauptverzeichnis und benennen Sie sie entsprechend um (z.B. <code>ueber-uns.html</code>)</li>
-            <li>Passen Sie alle relativen Pfade an (aus <code>../../Bilder/</code> wird <code>Bilder/</code>)</li>
+            <li><strong>Wichtig:</strong> Passen Sie alle relativen Pfade an:
+                <ul style="margin-top: 8px; margin-bottom: 8px">
+                    <li>Aus <code>../../Bilder/</code> wird <code>Bilder/</code> im Hauptverzeichnis</li>
+                    <li>Aus <code>./unterseite.css</code> wird z.B. <code>css/unterseite.css</code> (abhängig von Ihrer Struktur)</li>
+                    <li>Alle <code>href="../../xyz.html"</code> werden zu <code>href="xyz.html"</code></li>
+                </ul>
+            </li>
             <li>Passen Sie den Seitentitel an (z.B. "Über uns - Schützenverein Tell Quierschied")</li>
             <li>Ersetzen Sie den Beispielinhalt durch Ihren tatsächlichen Inhalt</li>
         </ol>
