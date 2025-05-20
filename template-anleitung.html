@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template Beispiel - Schützenverein Tell Quierschied</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #15803d;
+            border-bottom: 2px solid #e5e5e5;
+            padding-bottom: 10px;
+        }
+        .template-box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .template-box h3 {
+            margin-top: 0;
+            color: #15803d;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #15803d;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #166534;
+        }
+        code {
+            background-color: #f0f0f0;
+            padding: 3px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">        <h1>Template-Nutzung für Schützenverein Tell Quierschied</h1>
+        
+        <p>Diese Seite erklärt, wie Sie die erstellten Templates für neue Seiten der Website verwenden können.</p>
+        
+        <div class="alert" style="background-color: #e8f4e8; border-left: 4px solid #15803d; padding: 12px; margin-bottom: 20px; border-radius: 4px;">
+            <strong>Hinweis:</strong> Die alten Template-Dateien wurden entfernt. Bitte verwenden Sie nur noch die neuen Templates im <code>templates</code>-Ordner.
+        </div>
+        <div class="template-box">
+            <h3>Homepage Template</h3>
+            <p>Geeignet für die Startseite der Website mit Hero-Bereich, Vorstellungstext und Kontaktformular.</p>
+            <p><strong>Dateien:</strong></p>
+            <ul>
+                <li><code>templates/homepage/homepage.html</code></li>
+                <li><code>templates/homepage/homepage.css</code></li>
+                <li><code>templates/homepage/homepage.js</code></li>
+            </ul>
+            <a href="templates/homepage/homepage.html" target="_blank" class="btn">Template ansehen</a>
+        </div>
+        
+        <div class="template-box">
+            <h3>Unterseite Template</h3>
+            <p>Geeignet für alle anderen Seiten der Website wie Über uns, Galerie, Training & Preise, etc.</p>
+            <p><strong>Dateien:</strong></p>
+            <ul>
+                <li><code>templates/unterseite/unterseite.html</code></li>
+                <li><code>templates/unterseite/unterseite.css</code></li>
+                <li><code>templates/unterseite/unterseite.js</code></li>
+            </ul>
+            <a href="templates/unterseite/unterseite.html" target="_blank" class="btn">Template ansehen</a>
+        </div>
+        
+        <h2>Anwendung der Templates</h2>
+        
+        <ol>
+            <li>Wählen Sie das passende Template für Ihre neue Seite aus</li>
+            <li>Kopieren Sie die HTML-Datei ins Hauptverzeichnis und benennen Sie sie entsprechend um (z.B. <code>ueber-uns.html</code>)</li>
+            <li>Passen Sie alle relativen Pfade an (aus <code>../../Bilder/</code> wird <code>Bilder/</code>)</li>
+            <li>Passen Sie den Seitentitel an (z.B. "Über uns - Schützenverein Tell Quierschied")</li>
+            <li>Ersetzen Sie den Beispielinhalt durch Ihren tatsächlichen Inhalt</li>
+        </ol>
+        
+        <p>Weitere Informationen finden Sie in der <code>templates/README.md</code> Datei.</p>
+        
+        <a href="templates/README.md" class="btn">README öffnen</a>
+    </div>
+</body>
+</html>
