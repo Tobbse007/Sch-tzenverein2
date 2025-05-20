@@ -2,7 +2,6 @@
 <html lang="de">
 <head>    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Schützenverein Tell Quierschied</title>
     <meta name="description" content="Offizielle Webseite des Schützenvereins Tell in Quierschied - Sportschießen, Tradition und Gemeinschaft seit 1958">
     
@@ -85,23 +84,59 @@
                     </div>
                 </a>
             </div>
-            <!-- Mobile/Tablet: Button und Hamburger-Menü in eigene Zeile -->
-            <div class="shrink-0 w-1/5 flex justify-end items-center gap-2 lg:gap-0 lg:justify-end lg:w-1/5 mt-0 lg:mt-0" style="width:unset;">
+            
+            <!-- Desktop Navigation - Zentriert und mit dynamischer Breite -->
+            <nav class="hidden lg:flex justify-center items-center space-x-4 lg:space-x-6" aria-label="Hauptnavigation">
+                <a href="#" class="hover:text-green-700 transition duration-300 whitespace-nowrap">Startseite</a>
+                
+                <!-- Verein Dropdown -->
+                <div class="nav-dropdown">
+                    <button class="dropdown-button hover:text-green-700 flex items-center transition duration-300 whitespace-nowrap" aria-expanded="false" aria-haspopup="true">
+                        Verein
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-content" role="menu">
+                        <a href="#about" role="menuitem"><span>Über uns</span></a>
+                        <a href="#gastronomie" role="menuitem"><span>Gastronomie</span></a>
+                        <a href="#galerie" role="menuitem"><span>Galerie</span></a>
+                    </div>
+                </div>
+                
+                <a href="#aktuelles" class="hover:text-green-700 transition duration-300 whitespace-nowrap">Aktuelles</a>
+                
+                <!-- Schießsport Dropdown -->
+                <div class="nav-dropdown">
+                    <button class="dropdown-button hover:text-green-700 flex items-center transition duration-300 whitespace-nowrap" aria-expanded="false" aria-haspopup="true">
+                        Schießsport
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-content" role="menu">
+                        <a href="#gewehre" role="menuitem"><span>Gewehre</span></a>
+                        <a href="#disziplinen" role="menuitem"><span>Disziplinen</span></a>
+                        <a href="#halle" role="menuitem"><span>Halle/Ausstattung</span></a>
+                    </div>
+                </div>
+                
+                <a href="#training" class="hover:text-green-700 transition duration-300 whitespace-nowrap">Training & Preise</a>
+            </nav>
+            
+            <!-- Kontakt Button - hidden on mobile, feste Breite für rechten Bereich -->
+            <div class="shrink-0 w-1/5 flex justify-end">
                 <a href="#contact" class="btn hidden lg:inline-flex lg:items-center whitespace-nowrap">
                     Kontaktieren Sie uns
                 </a>
+                
+                <!-- Mobile Menu Button - only visible on mobile -->
                 <button id="mobile-menu-button" class="hamburger-menu lg:hidden focus:outline-none" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
                     <span class="bar"></span>
                     <span class="bar"></span>
                     <span class="bar"></span>
                 </button>
             </div>
-        </div>
-        <!-- Mobile: Button unterhalb von Logo/Titel anzeigen -->
-        <div class="block lg:hidden w-full px-2 mt-1">
-            <a href="#contact" class="btn w-full text-center block lg:hidden">
-                Kontaktieren Sie uns
-            </a>
         </div>
           <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden lg:hidden bg-white shadow-lg absolute w-full" aria-labelledby="mobile-menu-button">
