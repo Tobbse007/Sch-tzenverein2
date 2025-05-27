@@ -125,23 +125,52 @@ header {
   right: 0;
   z-index: 50;
   background-color: transparent !important;
-  padding: 0.75rem; /* Increased back to original */
+  padding: 0.75rem;
 }
 
 .navbar-container {
-  max-width: 1100px; /* Reduzierte Breite, damit die Navbar nicht über den ganzen Bildschirm geht */
-  width: 90%; /* Zusätzliche Breitenbegrenzung für kleinere Bildschirme */
+  max-width: 1100px;
+  width: 90%;
   margin: 0 auto;
   background-color: var(--color-white);
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-md);
-  padding: 0.75rem 1.75rem; /* Horizontales Padding */
+  padding: 0.75rem 1.75rem;
+  display: flex;
+  overflow: visible;
+  gap: 0;
+  position: relative;
+}
+
+/* Desktop: Horizontales Layout */
+@media (min-width: 1024px) {
+  .navbar-container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-height: auto; /* Normale Höhe für Desktop */
+  }
+  
+  .navbar-main {
+    display: contents; /* Macht die Wrapper unsichtbar für Desktop */
+  }
+}
+
+/* Mobile: Vertikales Layout */
+@media (max-width: 1023px) {
+  .navbar-container {
+    flex-direction: column;
+    min-height: 4.25rem; /* Höhere Mindesthöhe nur für Mobile */
+  }
+}
+
+/* Navbar Hauptbereich (Logo, Nav, Hamburger) */
+.navbar-main {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Gleichmäßige Verteilung der Elemente */
-  overflow: visible;
-  min-height: 4.25rem; /* Ausreichende Höhe für zweizeiligen Text */
-  gap: 0.5rem; /* Add spacing between flex items */
+  justify-content: space-between;
+  width: 100%;
+  gap: 0.5rem;
 }
 
 nav a, .dropdown-toggle, .dropdown-button {
@@ -156,8 +185,8 @@ nav a, .dropdown-toggle, .dropdown-button {
   pointer-events: auto;
 }
 
-/* Top nav underline animation */
-nav a::after, .dropdown-toggle::after, .dropdown-button::after {
+/* Top nav underline animation - nur für normale Links und nicht für die Dropdown-Buttons */
+nav a::after, .dropdown-toggle::after {
   content: '';
   position: absolute;
   bottom: -4px;
@@ -170,9 +199,24 @@ nav a::after, .dropdown-toggle::after, .dropdown-button::after {
     right var(--transition-normal);
 }
 
-nav a:hover::after, .dropdown-toggle:hover::after, .dropdown-button:hover::after {
+nav a:hover::after, .dropdown-toggle:hover::after {
   left: 0;
   right: 0;
+}
+
+/* Verbesserte Stile für Dropdown-Buttons ohne Unterstrich-Animation */
+.dropdown-button {
+  color: var(--color-text);
+  /* Nur Farbtransition, keine anderen Eigenschaften */
+  transition: color var(--transition-normal);
+  /* Wichtig für stabile Positionierung */
+  position: relative;
+  /* Für besseres Klickverhalten */
+  padding: 0.15em 0.5em 0.15em 0;
+}
+
+.dropdown-button:hover {
+  color: var(--color-primary);
 }
 
 nav a.active, .dropdown-toggle.active, .dropdown-button.active {
@@ -288,17 +332,41 @@ nav a.active::after, .dropdown-toggle.active::after, .dropdown-button.active::af
   display: none !important;
 }
 
-/* Dropdown arrow animation */
+/* Verbesserte Dropdown-Pfeil-Animation - mit vollständiger Trennung von Hover-Effekten */
 .dropdown-toggle svg, .dropdown-button svg {
-  transition: transform var(--transition-normal);
   transform-origin: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  position: relative;
+  display: inline-block;
+  margin-left: 4px;
+  pointer-events: none; /* Verhindert, dass SVG Hover-Effekte abfängt */
+  /* Kritisch: Isolierte Transition nur für Transform-Eigenschaft */
+  transition: transform 0.3s linear;
+  /* Stabile Ausgangsposition */
+  transform: rotate(0deg);
 }
 
+/* Isolierte Rotationsregel für Pfeile - unabhängig vom Text-Hover */
 .nav-dropdown:hover .dropdown-toggle svg,
 .nav-dropdown:hover .dropdown-button svg,
 .dropdown:hover .dropdown-toggle svg,
-.dropdown:hover .dropdown-button svg {
-  transform: rotate(180deg);
+.dropdown:hover .dropdown-button svg,
+.mobile-dropdown button[aria-expanded="true"] svg {
+  transform: rotate(180deg); /* Einfache 180-Grad-Rotation */
+}
+
+/* Optimierte Ausrichtung für Dropdown-Buttons */
+.nav-dropdown .dropdown-button,
+.mobile-dropdown button {
+  display: inline-flex;
+  align-items: center; /* Vertikale Ausrichtung */
+  gap: 0.25rem; /* Gleichmäßiger Abstand zwischen Text und Pfeil */
+  /* Verhindert, dass Hover flackert */
+  justify-content: center;
+  /* Erweiterte Hitbox für bessere Benutzererfahrung */
+  padding: 0.15rem 0.15rem 0.15rem 0;
 }
 
 /* Invisible buffer to prevent flicker */
@@ -532,6 +600,32 @@ nav a.active::after, .dropdown-toggle.active::after, .dropdown-button.active::af
   
   #mobile-menu {
     border-radius: 0 0 var(--border-radius-sm) var(--border-radius-sm);
+  }
+    /* Anpassungen für mobile Menü Links bei kleinen Bildschirmen - einheitliche Größe */
+  #mobile-menu a {
+    padding: 0.75rem 0.8rem; /* Angepasstes Padding für Konsistenz */
+    margin: 0 0.3rem 0.25rem 0.3rem; /* Einheitlicher Abstand */
+    min-height: 48px; /* Gleiche Mindesthöhe */
+  }
+  
+  .mobile-dropdown button {
+    padding: 0.75rem 0.8rem; /* Angepasstes Padding für Konsistenz */
+    margin: 0 0.3rem 0.25rem 0.3rem; /* Einheitlicher Abstand */
+    min-height: 48px; /* Gleiche Mindesthöhe */
+  }
+  
+  
+  #mobile-menu a[href="#contact"] {
+    margin: 0 0.3rem 0.25rem 0.3rem; /* Einheitlicher Abstand */
+    padding: 0.75rem 0.8rem; /* Angepasstes Padding für Konsistenz */
+    min-height: 48px; /* Gleiche Mindesthöhe */
+  }
+  
+  /* Anpassungen für mobile-menu-item bei kleinen Bildschirmen */
+  .mobile-menu-item {
+    padding: 0.75rem 0.8rem; /* Angepasstes Padding für kleine Bildschirme */
+    margin: 0 0.3rem 0.25rem 0.3rem; /* Einheitlicher Abstand */
+    min-height: 48px; /* Gleiche Mindesthöhe */
   }
   
   #hero {
@@ -863,67 +957,321 @@ input[type="checkbox"]:checked {
   }
 }
 
-/* ========== Additional Responsive Styles ========== */
-@media screen and (max-width: 768px) {
-  .section-title {
-    font-size: 1.75rem !important;
-  }
-  
-  .image-container {
-    min-height: 250px;
-  }
-  
-  #hero {
-    min-height: 450px !important;
-  }
-  
-  .hero-content {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-  }
-  
-  /* Better spacing on mobile */
-  section {
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
-  }
-  
-  /* Fix for navigation dropdown on mobile */
-  .mobile-dropdown-content {
+/* ========== Verbesserte Mobile Navbar Styles ========== */
+/* Mobile Menü als Teil der Navbar - nahtlos integriert */
+#mobile-menu {
+  background-color: var(--color-white);
+  width: 100%;
+  max-height: 0;
+  overflow: hidden;
+  /* Standard-Transition (für Schließen: schnell→langsam = ease-in) */
+  transition: max-height 0.3s ease-in, 
+              opacity 0.3s ease-in,
+              visibility 0.3s ease-in;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 0.25rem;
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Öffnen-Animation: langsam→schnell (ease-out) */
+#mobile-menu.opening {
+  transition: max-height 0.3s ease-out, 
+              opacity 0.3s ease-out,
+              visibility 0.3s ease-out;
+}
+
+/* Schließen-Animation: schnell→langsam (ease-in) */
+#mobile-menu.closing {
+  transition: max-height 0.3s ease-in, 
+              opacity 0.3s ease-in,
+              visibility 0.3s ease-in;
+}
+
+#mobile-menu.open {
+  max-height: 700px; /* Mehr Platz für alle Inhalte */
+  padding: 0.125rem 0; /* Weiter reduzierter oberer Abstand für nähere Positionierung */
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Mobile Menu Container - sorgt für korrekte Ausrichtung mit reduziertem Padding */
+#mobile-menu .px-4 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.125rem; /* Weiter reduzierter oberer Abstand für nähere Positionierung */
+  padding-bottom: 1rem; /* Symmetrischer unterer Abstand */
+}
+
+#mobile-menu .px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.125rem; /* Weiter reduzierter oberer Abstand für nähere Positionierung */
+  padding-bottom: 1rem; /* Symmetrischer unterer Abstand */
+}
+
+/* Mobile Menu Links - einheitliche Größe für alle Menüpunkte */
+#mobile-menu a {
+  display: block;
+  padding: 0.75rem 1rem; /* Einheitliches Padding für alle Links */
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition-normal), background-color var(--transition-normal);
+  border-radius: 4px;
+  margin: 0 0.5rem 0.25rem 0.5rem; /* Kleiner einheitlicher Abstand zwischen den Elementen */
+  min-height: 48px; /* Mindesthöhe für Touch-Freundlichkeit */
+  display: flex;
+  align-items: center;
+}
+
+#mobile-menu a:hover {
+  color: var(--color-primary);
+  background-color: #f8f9fa;
+}
+
+/* Verbesserte Mobile Dropdown Styles - einheitliche Größe mit anderen Menüpunkten */
+.mobile-dropdown button {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem 1rem; /* Gleiches Padding wie normale Links */
+  color: var(--color-text);
+  font-weight: 500;
+  cursor: pointer;
+  transition: color var(--transition-normal), background-color var(--transition-normal);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 4px;
+  margin: 0 0.5rem 0.25rem 0.5rem; /* Gleicher Abstand wie normale Links */
+  min-height: 48px; /* Gleiche Mindesthöhe wie normale Links */
+}
+
+.mobile-dropdown button svg {
+  transition: transform 0.4s ease;
+  transform-origin: center;
+}
+
+.mobile-dropdown button:hover {
+  color: var(--color-primary);
+  background-color: #f8f9fa;
+}
+
+/* Mobile Menu Styling - Einheitliche Ausrichtung und Größe */
+.mobile-menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.75rem 1rem; /* Einheitliches Padding für alle Menüpunkte */
+    color: inherit;
+    text-decoration: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: inherit;
+    font-family: inherit;
+    text-align: left;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-radius: 4px;
+    margin: 0 0.5rem 0.25rem 0.5rem; /* Einheitlicher Abstand zwischen den Elementen */
+    min-height: 48px; /* Mindesthöhe für Touch-Freundlichkeit */
+}
+
+.mobile-menu-item:hover {
+    color: var(--color-primary);
+    background-color: #f8f9fa;
+}
+
+.mobile-menu-item:last-child {
+    border-bottom: none;
+    margin-top: 1rem; /* Zusätzlicher oberer Abstand für den letzten Menüpunkt (Kontakt-Button) */
+}
+
+/* Spezielle Positionierung für Kontakt-Button in mobilen Menüs */
+.mobile-menu-item[href*="contact"],
+#mobile-menu a[href*="contact"] {
+    margin-top: 1rem; /* Zusätzlicher Abstand zum vorherigen Menüpunkt */
+}
+
+/* Kontakt Button Styling in index.html */
+.mobile-menu-item.contact-button {
+    background-color: var(--color-primary);
+    color: white;
+    text-align: center;
+    border-radius: var(--border-radius-sm);
+    border-bottom: none !important;
+    margin: 0 0.5rem;
+    min-height: 48px;
+}
+
+.mobile-menu-item.contact-button:hover {
+    background-color: var(--color-primary-dark);
+    color: white;
+}
+
+/* Mobile Dropdown Styling - Push-Down-Verhalten mit einheitlicher Größe */
+.mobile-dropdown {
+    width: 100%;
+}
+
+.mobile-dropdown-button {
+    border-bottom: 1px solid rgba(0,0,0,0.1) !important;
+}
+
+.mobile-dropdown-button svg {
+    transition: transform 0.3s ease;
+    transform-origin: center;
+    flex-shrink: 0;
+}
+
+/* Mobile Dropdown Content - Optimiert für bessere Animationen */
+.mobile-dropdown-content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-in-out;
+    background-color: rgba(248, 249, 250, 0.9);
+    border-left: 3px solid #22c55e;
+    margin-left: 1rem;
+    margin-bottom: 0;
+    margin-top: 0 !important;
+    border-radius: 0 4px 4px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-property: max-height, opacity, visibility, transform, margin-top, margin-bottom;
+}
+
+.mobile-dropdown-content.open {
+    max-height: 300px; /* Erhöht für mehr Inhalt */
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    margin-bottom: 8px;
+    margin-top: 0.5rem !important;
+}
+
+/* Arrow Animation für Dropdown Buttons */
+.mobile-dropdown-button svg {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-dropdown-button[aria-expanded="true"] svg {
+    transform: rotate(180deg);
+}
+
+.mobile-dropdown-button[aria-expanded="false"] svg {
+    transform: rotate(0deg);
+}
+
+/* Mobile Dropdown Items */
+.mobile-dropdown-item {
+    display: block;
+    padding: 10px 16px;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.mobile-dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.mobile-dropdown-item:hover {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: var(--color-primary);
+    padding-left: 20px;
+}
+
+/* Kontaktieren Sie uns Button im mobilen Menü - angepasste Größe */
+#mobile-menu a[href="#contact"] {
+  color: #ffffff;
+  background-color: var(--color-primary);
+  padding: 0.75rem 1rem; /* Gleiches Padding wie andere Menüpunkte */
+  margin: 0 0.5rem 0.25rem 0.5rem; /* Gleicher Abstand wie andere Menüpunkte */
+  border-radius: var(--border-radius-sm);
+  text-align: center;
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+  min-height: 48px; /* Gleiche Mindesthöhe wie andere Menüpunkte */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#mobile-menu a[href="#contact"]:hover {
+  background-color: var(--color-primary-dark);
+  color: #ffffff;
+}
+
+/* ========== Hamburger Menu Styles ========== */
+.hamburger-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 100;
+  position: relative;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-right: 5px;
+}
+
+.hamburger-menu .bar {
+  width: 100%;
+  height: 3px;
+  background-color: var(--color-primary);
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+  position: absolute;
+  left: 0;
+  transform-origin: center;
+}
+
+/* Absolute Positionierung für exakte Symmetrie */
+.hamburger-menu .bar:nth-child(1) {
+  top: 0;
+}
+
+.hamburger-menu .bar:nth-child(2) {
+  top: 10.5px; /* Exakte Mitte: (24px - 3px) / 2 */
+}
+
+.hamburger-menu .bar:nth-child(3) {
+  top: 21px; /* 24px - 3px */
+}
+
+/* Animation für das X - mathematisch perfekt symmetrisch */
+.hamburger-menu.active .bar:nth-child(1) {
+  transform: translateY(10.5px) rotate(45deg); /* Bewegung zur exakten Mitte */
+}
+
+.hamburger-menu.active .bar:nth-child(2) {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+.hamburger-menu.active .bar:nth-child(3) {
+  transform: translateY(-10.5px) rotate(-45deg); /* Bewegung zur exakten Mitte */
+}
+
+/* Responsive Hamburger Menu Display */
+@media (max-width: 1023px) {
+  #mobile-menu-button {
+    display: flex !important;
   }
   
-  .mobile-dropdown-content.active {
-    max-height: 200px;
+  nav.lg\:flex {
+    display: none !important;
   }
-}
-
-/* Fix image loading and display issues */
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* Ensure images in the gallery always maintain proper aspect ratio */
-.image-container img {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.5s ease;
-}
-
-/* Fix for content that might not show until scrolling */
-.container {
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-
-/* Ensure proper display of sections */
-#halle img, #gewehre img, #disziplinen img, #training img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
