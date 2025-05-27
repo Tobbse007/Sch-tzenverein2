@@ -13,7 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Mobile Menu found:', !!mobileMenu);
 
     if (mobileMenuButton && mobileMenu) {
-        console.log('✅ Both mobile menu elements found! Setting up click handler...');          mobileMenuButton.addEventListener('click', function(e) {
+        console.log('✅ Both mobile menu elements found! Setting up click handler...');
+        
+        mobileMenuButton.addEventListener('click', function(e) {
             e.preventDefault();
             console.log('🔥 HAMBURGER MENU CLICKED!');
             
@@ -21,32 +23,19 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Current state:', isOpen ? 'OPEN' : 'CLOSED');
             
             if (isOpen) {
-                // Menu schließen mit schnell→langsam Animation (ease-in)
-                console.log('Closing menu with ease-in animation...');
-                mobileMenu.classList.remove('opening');
-                mobileMenu.classList.add('closing');
+                // Menu schließen
+                console.log('Closing menu...');
                 mobileMenu.classList.remove('open');
+                mobileMenu.classList.add('hidden');
                 this.classList.remove('active');
                 this.setAttribute('aria-expanded', 'false');
-                
-                // Nach Animation verstecken und Klassen zurücksetzen
-                setTimeout(() => {
-                    mobileMenu.classList.add('hidden');
-                    mobileMenu.classList.remove('closing');
-                }, 300); // Wartet auf CSS-Transition
             } else {
-                // Menu öffnen mit langsam→schnell Animation (ease-out)
-                console.log('Opening menu with ease-out animation...');
+                // Menu öffnen
+                console.log('Opening menu...');
                 mobileMenu.classList.remove('hidden');
-                mobileMenu.classList.remove('closing');
-                mobileMenu.classList.add('opening');
+                mobileMenu.classList.add('open');
                 this.classList.add('active');
                 this.setAttribute('aria-expanded', 'true');
-                
-                // Animation triggern nach DOM-Update
-                requestAnimationFrame(() => {
-                    mobileMenu.classList.add('open');
-                });
             }
         });
         
